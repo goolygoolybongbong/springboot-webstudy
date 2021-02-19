@@ -8,3 +8,11 @@
  */
 
 rootProject.name = "springboot-webstudy"
+
+pluginManagement {
+    //val springBootPluginVersion = project.properties.get("spirng_boot_version")
+    val springBootVersion: String by settings
+    plugins {
+        id("org.springframework.boot") version "${springBootVersion}"
+    }
+}

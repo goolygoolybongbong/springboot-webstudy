@@ -6,3 +6,5 @@
 
 # Ignore Intellij directory
 /.idea
+
+application-oauth.properties

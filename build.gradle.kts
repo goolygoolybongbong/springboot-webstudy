@@ -5,12 +5,14 @@
  * Learn more about Gradle by exploring our samples at https://docs.gradle.org/6.7/samples
  */
 
+val springBootVersion = project.properties["springBootVersion"]
+val lombokVersion = project.properties["lombokVersion"]
 
 plugins {
     java
     eclipse
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
-    id("org.springframework.boot") version "2.4.1"
+    id("org.springframework.boot")
     //kotlin("jvm") version "1.4.21"
     //kotlin("plugin.spring") version "1.4.21"
 }
@@ -20,14 +22,36 @@ repositories {
 }
 
 dependencies {
-    val springVersion = "2.4.1"
-    //testImplementation("org.junit.jupiter", "junit-jupiter-api", "5.7.0")
-    testImplementation("org.springframework.boot", "spring-boot-starter-test")
-    implementation("org.springframework.boot", "spring-boot-starter-web", "2.4.1")
-    implementation("org.springframework.boot", "spring-boot-gradle-plugin", "2.4.1")
+    // spring-boot
+    implementation("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    // jpa
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    // mustache
+    implementation("org.springframework.boot:spring-boot-starter-mustache")
+
+    // spring security
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+    testImplementation("org.springframework.security:spring-security-test")
+
+    // spring session
+    implementation("org.springframework.session:spring-session-jdbc")
+
+    // lombok
+    implementation("org.projectlombok:lombok:$lombokVersion")
+    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+    testImplementation("org.projectlombok:lombok:$lombokVersion")
+    testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
+
+    // H2 database
+    implementation("com.h2database:h2")
+
 }
 
-// specify test platform : gradle(run test using)
+// # specify test platform : gradle(run test using)
 tasks.withType<Test> {
     useJUnitPlatform()
 }
